@@ -1,0 +1,97 @@
+Password Confirmation
+
+Objectives for Project
+
+1) Accept input from the user in the form of a password.
+
+2) Confirm the password matches the following criteria:
+    a) The password must be between 12 - 48 characters long.
+    
+    b) The password contains at least 1 upper case AND 1 lower case letters.
+        i) Lower Case Characters: abcdefghijklmnopqrstuvwxyz
+        ii) Upper Case Characters: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+        
+    c) The password contains at least 1 numbers.
+        i) Numbers: 0123456789
+        
+    d) The password contains at least 1 special characters.
+        i) Special characters can be any of the characters from this set: !@#$%^&*()-_+=[{]}|:;<,>.?/
+        ii) Any other special characters are illegal, and disqualify the password from being valid.
+        ~`\|
+        
+    e) The password, and the password confirmation are the same.
+
+3) Any password that does not match the above criteria is invalid. Inform the user if so. If the password is valid then:
+    i) Inform the user the password is valid.
+    ii) Generate a hash of said password, and print that to the console.
+    
+After finishing this project, you will trade with your peers so that they may test your program. Be wary, your peers will attempt to break it.
+
+When testing another's program, do your best to test against the criteria, and see if you can get it to fail in some way. Record all findings within a text document.
+
+Program Questions:
+    1) How did you use compound / complex conditionals in tandem when completing this project? How did you use loops when completing this project?
+    2) What advantages are there with compound conditional statements?
+    3) How did you test for the required characters?
+
+Research Questions:
+    1) Why is it important for passwords to be long?
+    2) What's the point of enforcing usage of letters, numbers, and special characters in a password?
+    3) What is a hash?
+    4) Why generate a hash of a password? What purpose does that serve?
+
+Please answer all questions with 2-5 sentences.
+
+_______________________________________________________________
+
+Example Output:
+
+1) Valid Password
+
+>> password
+>> hello_THIS_is_my_pass
+
+>> confirm password
+>> hello_THIS_is_my_pass
+
+>> password is valid, and set
+>> hash: -7724530324960607097
+
+_______________________________________________________________
+
+2) Passwords do not match
+
+>> password
+>> +70$ufrI=Ahu
+
+>> confirm password
+>> +70$ufrI=Ah
+
+>> passwords do no match, please check your spelling
+
+_______________________________________________________________
+
+3) Password is not long enough
+
+>> password
+>> a!_bFF34
+
+>> confirm password
+>> a!_bFF34
+
+>> password is of incorrect length
+>> please enter a password with a length between 12 - 24 characters
+
+_______________________________________________________________
+
+3) Password is missing specific characters. You should inform the user what characters are missing, or list all required values if they miss entering a character.
+
+>> password
+>> StAcE49lwuTrlc
+
+>> confirm password
+>> StAcE49lwuTrlc
+
+>> password does not contain special characters
+>> please enter a password with at least 2 special characters
+>> valid special characters: !@#$%^&*()-_+=[{]}|:;<,>.?/
