@@ -6,25 +6,25 @@ Objectives for Project
 
 2) Confirm the password matches the following criteria:
     a) The password must be between 12 - 48 characters long.
-    
+
     b) The password contains at least 1 upper case AND 1 lower case letters.
         i) Lower Case Characters: abcdefghijklmnopqrstuvwxyz
         ii) Upper Case Characters: ABCDEFGHIJKLMNOPQRSTUVWXYZ
-        
+
     c) The password contains at least 1 numbers.
         i) Numbers: 0123456789
-        
+
     d) The password contains at least 1 special characters.
         i) Special characters can be any of the characters from this set: !@#$%^&*()-_+=[{]}|:;<,>.?/
         ii) Any other special characters are illegal, and disqualify the password from being valid.
         ~`\|
-        
+
     e) The password, and the password confirmation are the same.
 
 3) Any password that does not match the above criteria is invalid. Inform the user if so. If the password is valid then:
     i) Inform the user the password is valid.
     ii) Generate a hash of said password, and print that to the console.
-    
+
 After finishing this project, you will trade with your peers so that they may test your program. Be wary, your peers will attempt to break it.
 
 When testing another's program, do your best to test against the criteria, and see if you can get it to fail in some way. Record all findings within a text document.

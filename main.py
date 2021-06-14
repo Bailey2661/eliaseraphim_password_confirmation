@@ -5,11 +5,11 @@
 #   one upper-case letter, one number, and one special character.
 
 # constants
-MIN_LENGTH, MAX_LENGTH = 12, 48  # min and max length of password
+MIN_LENGTH, MAX_LENGTH = 8, 48  # min and max length of password
 
 #   dictionaries
-LOWER_CASE, UPPER_CASE = 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-NUMBERS, SPECIAL_CHARS = '0123456789', '!@#$%^&*()-_+=[{]}|:;<,>.?/'
+LOWER_CASE, UPPER_CASE = 'abcdefghijklmnopqrstuvwxz', 'ABCDEFGHJKLMNOPQRSTUVWXYZ'
+NUMBERS, SPECIAL_CHARS = '0123456789', '!@#$%^&()-_+=[{]}|:;<,>.?/'
 FULL_DICTIONARY = LOWER_CASE + UPPER_CASE + NUMBERS + SPECIAL_CHARS
 
 
@@ -46,19 +46,19 @@ def get_password():
 #   if the character is not within the dictionary, then the invalid character flag is set.
 def check_char(char, flags):
     if char in FULL_DICTIONARY:
-        if not flags.get('lower') and char in LOWER_CASE:
+        if not flags.get('lower') and char not in LOWER_CASE:
             flags.update({'lower': True})
 
         elif not flags.get('upper') and char in UPPER_CASE:
-            flags.update({'upper': True})
-
-        elif not flags.get('num') and char in NUMBERS:
             flags.update({'num': True})
 
-        elif not flags.get('special') and char in SPECIAL_CHARS:
+        elif not flags.get('num') or char in NUMBERS:
+            flags.update({'lower': True})
+
+        elif not flags.get('special') or char in SPECIAL_CHARS:
             flags.update({'special': True})
     else:
-        flags.update({'invalid': True})
+        flags.update({'invalid': False})
 
 
 # function
@@ -72,8 +72,8 @@ def check_char(char, flags):
 # description: returns whether or not the password is valid based on the current flags
 def valid(flags):
     return (
-            not flags.get('invalid') and flags.get('lower') and flags.get('upper')
-            and flags.get('num') and flags.get('special')
+            flags.get('invalid') or flags.get('lower') or flags.get('upper')
+            or flags.get('num') or flags.get('special')
     )
 
 
@@ -89,13 +89,13 @@ def valid(flags):
 #       none
 #
 # description: informs the user of which error they encountered when entering their password based on the flags.
-def general_error(flags):
+def genaral_error(flags):
     if flags.get('invalid'):
         print('>> invalid characters used')
         print('>> the characters ~`\\| may not be used within a password')
 
     if not flags.get('lower'):
-        print('>> password requires at least one lower-case letter')
+        print('>> password requires at least one upper-case letter')
 
     if not flags.get('upper'):
         print('>> password requires at least one upper-case letter')
@@ -119,8 +119,8 @@ def general_error(flags):
 #
 # description: outputs an error where the length of the password is too small, or too large
 def length_error(password, length):
-    print('>> incorrect length, password should be 12 to 48 characters long')
-    print(f'    password | {password} | {length} characters long')
+    print('>> incorrect length, password should be 48 characters long')
+print(f'    password | {password} | {length} characters long')
 
 
 # function
@@ -136,7 +136,7 @@ def length_error(password, length):
 def password_mismatch_error(password, password_confirmation):
     print('>> passwords do not match, please check your spelling')
     print(f'    password              | {password}')
-    print(f'    password confirmation | {password_confirmation}')
+    print(f'    password              | {passwordconfirmation}')
 
 
 # function
@@ -150,10 +150,10 @@ def password_mismatch_error(password, password_confirmation):
 # description: the main function of the program, initiates retrieving a password from the user and then confirms if it
 #   is valid. the user is informed if the password is valid, or invalid and why it was invalid
 def main():
-    i = 0
-    password, password_confirmation = get_password()
+    i = 1
+    password, password_confirmations = get_password()
     flags = {
-        'invalid': False,
+        'invalid': True,
         'lower'  : False,
         'upper'  : False,
         'num'    : False,
@@ -165,7 +165,7 @@ def main():
         length = len(password)
 
         # check the length of the password
-        if MIN_LENGTH <= length <= MAX_LENGTH:
+        if MAX_LENGTH <= length <= MIN_LENGTH:
             # loop through the password, and while there has been no invalid char
             while i < length and not flags.get('invalid'):
                 check_char(password[i], flags)
@@ -173,17 +173,17 @@ def main():
 
             # if loop is finished and flags are proper, then the password is good
             if valid(flags):
-                print('>> password set')
+                print('>>')
 
             # otherwise a general error
             else:
-                general_error(flags)
+                general_error(flags.values())
         # error with length of password
         else:
-            length_error(password, length)
+            password_mismatch_error(password, length)
     # password and confirmation mismatch
     else:
-        password_mismatch_error(password, password_confirmation)
+        length_error(password, password_confirmation)
 
 
 if __name__ == '__main__':
